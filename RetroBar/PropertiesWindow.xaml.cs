@@ -426,6 +426,14 @@ namespace RetroBar
             }
         }
 
+        private void CboTaskWheelAction_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (cboTaskWheelAction.SelectedItem == null)
+            {
+                cboTaskWheelAction.SelectedValue = cboTaskWheelAction.Items[(int)Settings.Instance.TaskWheelAction];
+            }
+        }
+
         private void CboRowCount_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (cboRowCount.SelectedItem == null)
@@ -472,6 +480,11 @@ namespace RetroBar
             string path = _dictionaryManager.GetThemeInstallDir();
             Directory.CreateDirectory(path);
             ShellHelper.StartProcess(path);
+        }
+
+        private void ClockFormatHelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShellHelper.ExecuteProcess("https://learn.microsoft.com/dotnet/standard/base-types/custom-date-and-time-format-strings#table");
         }
     }
 }

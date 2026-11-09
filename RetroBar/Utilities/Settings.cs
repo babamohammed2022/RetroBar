@@ -1,4 +1,4 @@
-﻿using ManagedShell.AppBar;
+using ManagedShell.AppBar;
 using ManagedShell.Common.Helpers;
 using ManagedShell.WindowsTray;
 using System;
@@ -105,6 +105,91 @@ namespace RetroBar.Utilities
         {
             get => _showClock;
             set => Set(ref _showClock, value);
+        }
+
+        private bool _overrideClockFormat = false;
+        public bool OverrideClockFormat
+        {
+            get
+            {
+                return _overrideClockFormat;
+            }
+            set
+            {
+                if (_overrideClockFormat != value)
+                {
+                    _overrideClockFormat = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _clockFormat = "ddd MMM d  h:mm:ss tt";
+        public string ClockFormat
+        {
+            get
+            {
+                return _clockFormat;
+            }
+            set
+            {
+                if (_clockFormat != value)
+                {
+                    _clockFormat = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _overrideAMPMDesignators = false;
+        public bool OverrideAMPMDesignators
+        {
+            get
+            {
+                return _overrideAMPMDesignators;
+            }
+            set
+            {
+                if (_overrideAMPMDesignators != value)
+                {
+                    _overrideAMPMDesignators = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _amDesignator = "a.m.";
+        public string AMDesignator
+        {
+            get
+            {
+                return _amDesignator;
+            }
+            set
+            {
+                if (_amDesignator != value)
+                {
+                    _amDesignator = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _pmDesignator = "p.m.";
+        public string PMDesignator
+        {
+            get
+            {
+                return _pmDesignator;
+            }
+            set
+            {
+                if (_pmDesignator != value)
+                {
+                    _pmDesignator = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private bool _showDesktopButton = false;
@@ -318,6 +403,13 @@ namespace RetroBar.Utilities
             set => SetEnum(ref _taskMiddleClickAction, value);
         }
 
+        private TaskWheelActionOption _taskWheelAction = TaskWheelActionOption.DoNothing;
+        public TaskWheelActionOption TaskWheelAction
+        {
+            get => _taskWheelAction;
+            set => SetEnum(ref _taskWheelAction, value);
+        }
+
         private ClockClickOption _clockClickAction = EnvironmentHelper.IsWindows10OrBetter ? ClockClickOption.OpenNotificationCenter : ClockClickOption.DoNothing;
         public ClockClickOption ClockClickAction
         {
@@ -396,8 +488,15 @@ namespace RetroBar.Utilities
             get => _allowBlurBehind;
             set => Set(ref _allowBlurBehind, value);
         }
+        
+        private bool _allowAlternateMaximizedAppearance = true;
+        public bool AllowAlternateMaximizedAppearance
+        {
+          get => _allowAlternateMaximizedAppearance;
+          set => Set(ref _allowAlternateMaximizedAppearance, value);
+        }
         #endregion
-
+        
         #region Old Properties
         public bool? MiddleMouseToClose
         {
@@ -460,6 +559,11 @@ namespace RetroBar.Utilities
         DoNothing,
         OpenNewInstance,
         CloseTask
+    }
+    public enum TaskWheelActionOption
+    {
+        DoNothing,
+        ShowHideWindow
     }
 
     public enum ClockClickOption
